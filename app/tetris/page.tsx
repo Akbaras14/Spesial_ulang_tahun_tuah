@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { FaHeart } from 'react-icons/fa';
+
 type Cell = string | null;
 
 const ROWS = 11;
@@ -76,7 +76,7 @@ interface Position {
 }
 
 interface Piece {
-  shape: (string | 0)[][];
+  shape: (string | number)[][];
   color: string;
   position: Position;
 }
@@ -85,7 +85,7 @@ function createEmptyGrid(): Cell[][] {
   return Array.from({ length: ROWS }, () => Array(COLS).fill(null));
 }
 
-function rotate(matrix: (string | 0)[][]): (string | 0)[][] {
+function rotate(matrix: (string | number)[][]): (string | number)[][] {
   const N = matrix.length;
   const result = Array.from({ length: N }, () => Array(N).fill(0));
   for (let y = 0; y < N; y++) {
@@ -96,7 +96,13 @@ function rotate(matrix: (string | 0)[][]): (string | 0)[][] {
   return result;
 }
 
-function canMove(grid: Cell[][], piece: Piece, moveX: number, moveY: number, newShape?: (string | 0)[][]): boolean {
+function canMove(
+  grid: Cell[][],
+  piece: Piece,
+  moveX: number,
+  moveY: number,
+  newShape?: (string | number)[][]
+): boolean {
   const shape = newShape || piece.shape;
   for (let y = 0; y < shape.length; y++) {
     for (let x = 0; x < shape[y].length; x++) {
@@ -349,7 +355,7 @@ export default function TetrisGameWithButtons() {
               <h2 className="text-2xl font-bold mb-4 text-red-600">GAMEOVER!</h2>
               <button
                 onClick={handleNext}
-                className="bg-blue-600active:scale-95 active:translate-y-1  shadow-gray-800 shadow-md hover:bg-green-600 transition duration-200 bg-blue-600 text-white px-6 py-2 rounded"
+                className="bg-blue-600 active:scale-95 active:translate-y-1 shadow-gray-800 shadow-md hover:bg-green-600 transition duration-200 text-white px-6 py-2 rounded"
               >
                 Next
               </button>
@@ -359,19 +365,17 @@ export default function TetrisGameWithButtons() {
 
         {/* Notifikasi Modal Kedua */}
         {showSecondAlert && (
-          <div className="fixed inset-0 flex items-center justify-center  bg-blue-300 bg-opacity-50 z-50">
+          <div className="fixed inset-0 flex items-center justify-center bg-blue-300 bg-opacity-50 z-50">
             <div className="bg-black rounded-lg p-6 max-w-xs text-center shadow-[inset_0_0_12px_#FFFF00] grid">
-               <p className="text-lg mb-4 text-yellow-400 ">
-                INGET YA!
+              <p className="text-lg mb-4 text-yellow-400">INGET YA!</p>
+              <p className="text-lg text-white mb-4">
+                Walaupun kamu kalah tapi kamu selalu menang dihatiku<br />^_^
               </p>
-              <p className="text-lg text-white mb-4 ">
-               Walaupun kamu kalah tapi kamu selalu menang dihatiku<br/>^_^
-              </p>
-              <p className="text-lg mb-4 text-pink-500 ">
-                I LOVE YOU :3
-              </p>
+              <p className="text-lg mb-4 text-pink-500">I LOVE YOU :3</p>
               <Link href="/end">
-              <div className="bg-green-600 px-4 py-1 rounded active:translate-y-1  shadow-gray-800 shadow-md hover:bg-green-300 transition duration-200">NEXT</div>
+                <div className="bg-green-600 px-4 py-1 rounded active:translate-y-1 shadow-gray-800 shadow-md hover:bg-green-300 transition duration-200 cursor-pointer">
+                  NEXT
+                </div>
               </Link>
             </div>
           </div>
