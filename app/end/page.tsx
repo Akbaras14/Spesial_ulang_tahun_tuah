@@ -30,14 +30,20 @@ export default function Home() {
     setTypedText((prev) => prev + '\n');
   };
 
-  // Fungsi untuk mengirim pesan ke WhatsApp
+  // Fungsi untuk mengirim pesan ke WhatsApp tanpa encoding
   const handleSend = () => {
     if (!typedText.trim()) {
       alert('Teks kosong, silakan ketik pesan terlebih dahulu.');
       return;
     }
 
-  const whatsappUrl = `https://wa.me/6285893802972`;
+    // Nomor tujuan WhatsApp (format internasional tanpa +)
+    const phoneNumber = '6285893802972';
+
+    // Buat URL WhatsApp dengan pesan tanpa encoding
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${typedText}`;
+
+    // Buka tab baru dengan URL WhatsApp
     window.open(whatsappUrl, '_blank');
   };
 
