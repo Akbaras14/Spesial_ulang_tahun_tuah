@@ -361,11 +361,13 @@ export default function TetrisGameWithButtons() {
 
         {/* Notifikasi Modal Kedua */}
         {showSecondAlert && (
-          <div className="fixed inset-0 flex items-center justify-center bg-blue-300 bg-opacity-50 z-50">
-            <div className="bg-black rounded-lg p-6 max-w-xs text-center shadow-[inset_0_0_12px_#FFFF00] grid gap-4">
-              <p className="text-lg mb-4 text-yellow-400">INGET YA!</p>
-              <p className="text-lg text-white mb-4">
-                Walaupun kamu kalah tapi kamu selalu menang dihatiku<br />^_^
+          <div className="fixed inset-0 flex items-center justify-center  bg-blue-300 bg-opacity-50 z-50">
+            <div className="bg-black rounded-lg p-6 max-w-xs text-center shadow-[inset_0_0_12px_#FFFF00] grid">
+               <p className="text-lg mb-4 text-yellow-400 ">
+                INGET YA!
+              </p>
+              <p className="text-lg text-white mb-4 ">
+               Walaupun kamu kalah tapi kamu selalu menang dihatiku<br/>^_^
               </p>
               <p className="text-lg mb-4 text-pink-500">I LOVE YOU :3</p>
               <Link href="/end">
