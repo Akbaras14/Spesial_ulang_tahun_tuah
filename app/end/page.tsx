@@ -36,8 +36,8 @@ export default function Home() {
       alert('Teks kosong, silakan ketik pesan terlebih dahulu.');
       return;
     }
-    const encodedText = encodeURIComponent(typedText);
-    const whatsappUrl = `https://wa.me/628589302972`;
+
+  const whatsappUrl = `https://wa.me/628589302972`;
     window.open(whatsappUrl, '_blank');
   };
 

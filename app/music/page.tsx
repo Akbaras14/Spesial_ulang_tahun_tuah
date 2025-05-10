@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Song {
   title: string;
@@ -83,7 +84,7 @@ const MusicPage: React.FC = () => {
     if (isPlaying) {
       audioRef.current.play();
     }
-  }, [currentIndex]);
+  }, [currentIndex, isPlaying]);
 
   const handleTimeUpdate = () => {
     if (!audioRef.current) return;
@@ -131,35 +132,42 @@ const MusicPage: React.FC = () => {
         <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Music Player</h1>
 
         {/* Album Cover & Info */}
-<div className="bg-black rounded-md shadow-[inset_0_0_17px_#22c55e] p-9 flex flex-col items-center mb-6 w-full h-80">
-  {songs[currentIndex].cover ? (
-    <img
-      src={songs[currentIndex].cover}
-      alt={`${songs[currentIndex].title} cover`}
-      className="rounded w-full h-40 object-cover mb-4"
-      style={{ flexShrink: 0 }}
-    />
-  ) : (
-    <div className="w-full h-40 bg-gray-600 rounded flex items-center justify-center text-gray-300 mb-4" style={{ flexShrink: 0 }}>
-      No Cover
-    </div>
-  )}
-  <div className="text-center flex flex-col justify-center flex-grow">
-    <div className="text-green-400 font-bold text-lg">{songs[currentIndex].title}</div>
-    <div className="text-yellow-400 text-sm">{songs[currentIndex].artist}</div>
-  </div>
-  <audio
-    ref={audioRef}
-    src={songs[currentIndex].src}
-    onEnded={handleEnded}
-    onTimeUpdate={handleTimeUpdate}
-    onLoadedMetadata={handleLoadedMetadata}
-    className="w-full mt-4"
-    controls={false}
-  />
-</div>
+        <div className="bg-black rounded-md shadow-[inset_0_0_17px_#22c55e] p-9 flex flex-col items-center mb-6 w-full h-80">
+          {songs[currentIndex].cover ? (
+            <Image
+              src={songs[currentIndex].cover}
+              alt={`${songs[currentIndex].title} cover`}
+              className="rounded mb-4"
+              style={{ flexShrink: 0 }}
+              width={210}
+              height={160}
+              objectFit="cover"
+              priority
+            />
+          ) : (
+            <div
+              className="w-full h-40 bg-gray-600 rounded flex items-center justify-center text-gray-300 mb-4"
+              style={{ flexShrink: 0 }}
+            >
+              No Cover
+            </div>
+          )}
+          <div className="text-center flex flex-col justify-center flex-grow">
+            <div className="text-green-400 font-bold text-lg">{songs[currentIndex].title}</div>
+            <div className="text-yellow-400 text-sm">{songs[currentIndex].artist}</div>
+          </div>
+          <audio
+            ref={audioRef}
+            src={songs[currentIndex].src}
+            onEnded={handleEnded}
+            onTimeUpdate={handleTimeUpdate}
+            onLoadedMetadata={handleLoadedMetadata}
+            className="w-full mt-4"
+            controls={false}
+          />
+        </div>
 
- {/* Progress Bar */}
+        {/* Progress Bar */}
         <div className="mb-6">
           <input
             type="range"
@@ -177,12 +185,13 @@ const MusicPage: React.FC = () => {
             <span>{formatTime(duration)}</span>
           </div>
         </div>
+
         {/* Controls */}
         <div className="flex items-center justify-between mb-4 space-x-3">
           <button
             onClick={toggleShuffle}
-            className={`px-3 py-2 rounded font-bold transition-colors active:translate-y-1  shadow-gray-800 shadow-md hover:bg-gray-600 transition duration-200 ${
-              shuffle ? 'bg-green-600 text-white' : 'bg-gray-300 text-gray-700 '
+            className={`px-3 py-2 rounded font-bold active:translate-y-1 shadow-gray-800 shadow-md hover:bg-gray-600 transition duration-200 ${
+              shuffle ? 'bg-green-600 text-white' : 'bg-gray-300 text-gray-700'
             }`}
             aria-label="Toggle Shuffle"
             title="Shuffle"
@@ -191,21 +200,21 @@ const MusicPage: React.FC = () => {
           </button>
           <button
             onClick={playPrevious}
-            className="bg-blue-500 px-4 py-2 text-white font-bold rounded active:translate-y-1  shadow-gray-800 shadow-md hover:bg-gray-600 transition duration-200"
+            className="bg-blue-500 px-4 py-2 text-white font-bold rounded active:translate-y-1 shadow-gray-800 shadow-md hover:bg-gray-600 transition duration-200"
             aria-label="Previous Song"
           >
             ⏮
           </button>
           <button
             onClick={togglePlayPause}
-            className="bg-blue-500 px-6 py-2 text-white font-bold rounded active:translate-y-1  shadow-gray-800 shadow-md hover:bg-gray-600 transition duration-200"
+            className="bg-blue-500 px-6 py-2 text-white font-bold rounded active:translate-y-1 shadow-gray-800 shadow-md hover:bg-gray-600 transition duration-200"
             aria-label={isPlaying ? 'Pause' : 'Play'}
           >
             {isPlaying ? '⏸' : '▶'}
           </button>
           <button
             onClick={playNext}
-            className="bg-blue-500 px-4 py-2 text-white font-bold rounded active:translate-y-1  shadow-gray-800 shadow-md hover:bg-gray-600 transition duration-200"
+            className="bg-blue-500 px-4 py-2 text-white font-bold rounded active:translate-y-1 shadow-gray-800 shadow-md hover:bg-gray-600 transition duration-200"
             aria-label="Next Song"
           >
             ⏭
@@ -217,13 +226,11 @@ const MusicPage: React.FC = () => {
             step={0.01}
             value={volume}
             onChange={handleVolumeChange}
-            className="w-15 cursor-pointer  "
+            className="w-15 cursor-pointer"
             aria-label="Volume Control"
             title="Volume"
           />
         </div>
-
-       
 
         {/* Playlist */}
         <div className="overflow-y-auto max-h-48 border-t border-gray-300 pt-2">
@@ -256,12 +263,17 @@ const MusicPage: React.FC = () => {
             ))}
           </ul>
         </div>
+
         <div className="flex justify-center mt-8 space-x-4">
           <Link href="/message">
-          <button className="bg-red-500 px-4 py-1 rounded active:scale-95 active:translate-y-1  shadow-gray-800 shadow-md hover:bg-red-600 transition duration-200">BACK</button>
+            <button className="bg-red-500 px-4 py-1 rounded active:scale-95 active:translate-y-1 shadow-gray-800 shadow-md hover:bg-red-600 transition duration-200">
+              BACK
+            </button>
           </Link>
           <Link href="/tetris">
-          <button className="bg-green-500 px-4 py-1 rounded active:scale-95 active:translate-y-1  shadow-gray-800 shadow-md hover:bg-green-600 transition duration-200">NEXT</button>
+            <button className="bg-green-500 px-4 py-1 rounded active:scale-95 active:translate-y-1 shadow-gray-800 shadow-md hover:bg-green-600 transition duration-200">
+              NEXT
+            </button>
           </Link>
         </div>
       </div>

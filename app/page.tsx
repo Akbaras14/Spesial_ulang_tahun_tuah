@@ -1,26 +1,37 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function LoadingScreen() {
   const [progress, setProgress] = useState(0);
   const router = useRouter();
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
-          clearInterval(interval);
-          router.push('/home');
           return 100;
         }
         return prev + 1;
       });
-    }, 60); // 5 seconds total
+    }, 60); // 5 seconds total (100 * 60ms = 6000ms)
 
-    return () => clearInterval(interval);
-  }, [router]);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (progress >= 100) {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      router.push('/home');
+    }
+  }, [progress, router]);
 
   return (
     <div className="flex items-center justify-center h-screen bg-black text-green-400 font-mono">
