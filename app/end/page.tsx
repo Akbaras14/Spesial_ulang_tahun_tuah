@@ -37,7 +37,7 @@ export default function Home() {
       return;
     }
 
-  const whatsappUrl = `https://wa.me/628589302972`;
+  const whatsappUrl = `https://wa.me/6285893802972`;
     window.open(whatsappUrl, '_blank');
   };
 

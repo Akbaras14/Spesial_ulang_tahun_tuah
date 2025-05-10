@@ -36,8 +36,8 @@ export default function LoadingScreen() {
   return (
     <div className="flex items-center justify-center h-screen bg-black text-green-400 font-mono">
       <div className="border-4 border-green-400 p-6 w-[400px] text-center">
-        <h1 className="text-2xl font-bold mb-2">Bengkel Coding</h1>
-        <h1 className="text-[11px] text-white font-bold mb-2">Technology Solutions For You</h1>
+        <h1 className="text-xl font-bold mb-2">SPESIAL FOR YOU</h1>
+        <h1 className="text-2xl text-white font-bold mb-2">MAFTUKAH ^_^</h1>
         <div className="text-left text-lg mb-2">&gt; READY!<span className="animate-pulse">_</span></div>
         <div className="w-full h-6 bg-gray-800 rounded overflow-hidden">
           <div

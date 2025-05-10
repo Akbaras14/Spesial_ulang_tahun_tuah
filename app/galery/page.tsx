@@ -58,7 +58,7 @@ export default function PhotoSlideshow() {
           Selamat ulang tahun, semoga harimu selalu menyenangkan!
         </p>
         <div className="flex justify-center mt-8 space-x-4">
-          <Link href="/">
+          <Link href="/home">
           <button className="bg-red-500 px-4 py-1 rounded active:scale-95 active:translate-y-1  shadow-gray-800 shadow-md hover:bg-red-600 transition duration-200">BACK</button>
           </Link>
           <Link href="/message">

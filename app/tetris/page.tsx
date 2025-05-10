@@ -343,6 +343,7 @@ export default function TetrisGameWithButtons() {
             </button>
           )}
         </div>
+        
 
         {/* Notifikasi Modal Pertama */}
         {showFirstAlert && (
@@ -358,6 +359,14 @@ export default function TetrisGameWithButtons() {
             </div>
           </div>
         )}
+        <div className="flex justify-center mt-8 space-x-4">
+                  <Link href="/music">
+                  <button className="bg-red-500 px-4 py-1 rounded active:scale-95 active:translate-y-1  shadow-gray-800 shadow-md hover:bg-red-600 transition duration-200">BACK</button>
+                  </Link>
+                  <Link href="/pesan">
+                  <button className="bg-green-500 px-4 py-1 rounded active:scale-95 active:translate-y-1  shadow-gray-800 shadow-md hover:bg-green-600 transition duration-200">NEXT</button>
+                  </Link>
+                  </div>
 
         {/* Notifikasi Modal Kedua */}
         {showSecondAlert && (
@@ -376,6 +385,7 @@ export default function TetrisGameWithButtons() {
                 </div>
               </Link>
             </div>
+            
           </div>
         )}
       </div>
